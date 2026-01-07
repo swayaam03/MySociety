@@ -1,60 +1,82 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./Login.css"; // This imports the CSS file you just created
 
 function Login() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const loginHandler = async (e) => {
     e.preventDefault();
-
     try {
-
       const res = await axios.post("http://localhost:5000/api/auth/login", {
         email,
         password
       });
-
       localStorage.setItem("token", res.data.token);
-
       window.location.href = "/dashboard";
-
     } catch (err) {
       alert(err.response?.data?.message || "Login Failed");
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="bg-white p-5 shadow rounded w-96">
-
-        <h2 className="text-xl font-semibold text-center mb-4">Admin Login</h2>
+    <div className="login-container">
+      <div className="login-card">
+        
+        <div className="login-header">
+          <h1>Welcome Back</h1>
+          <p>Enter your details to access the dashboard.</p>
+        </div>
 
         <form onSubmit={loginHandler}>
+          
+          <div className="form-group">
+            <label className="form-label">Email Address</label>
+            <input
+              className="form-input"
+              type="email"
+              placeholder="admin@society.com"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-          <input
-            className="border p-2 w-full mb-3"
-            type="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input
+              className="form-input"
+              type="password"
+              placeholder="••••••••"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-          <input
-            className="border p-2 w-full mb-3"
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="form-actions">
+            <label className="remember-me">
+              <input type="checkbox" className="checkbox" />
+              Remember me
+            </label>
+            {/* Replaced <a> with <button> to fix the ESLint warning */}
+            <button 
+              type="button" 
+              className="forgot-password"
+              onClick={() => alert("Navigate to forgot password page")}
+            >
+              Forgot Password?
+            </button>
+          </div>
 
-          <button className="bg-blue-600 text-white p-2 w-full rounded">
-            Login
+          <button className="login-btn">
+            Sign In
           </button>
 
         </form>
 
+        <div className="footer-text">
+          Don't have an account? Contact Admin
+        </div>
       </div>
     </div>
   );
