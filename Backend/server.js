@@ -9,11 +9,15 @@ connectDB();
 const app = express();
 
 app.use(cors());
+
+// 👉 THIS LINE IS CRITICAL
 app.use(express.json());
 
-// Test route
+// Routes
+app.use("/api/auth", require("./routes/auth"));
+
 app.get("/", (req, res) => {
-  res.send("MySociety API is running");
+  res.send("MySociety API running");
 });
 
 const PORT = process.env.PORT || 5000;
