@@ -32,8 +32,7 @@ const userSchema = new mongoose.Schema(
     },
 
     societyId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "societies",
+      type: String,
       required: true
     },
 

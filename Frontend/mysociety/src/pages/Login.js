@@ -69,7 +69,7 @@ function Login() {
           </div>
 
           <button className="login-btn">
-            Sign In
+            Login 
           </button>
 
         </form>
